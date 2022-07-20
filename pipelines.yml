@@ -38,7 +38,7 @@ resources:
       externalCI: Artifactory
 
 pipelines:
-  - name: react-node-app
+  - name: react_node_app
     configuration:
       environmentVariables:
         readOnly:
