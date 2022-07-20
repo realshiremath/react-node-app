@@ -13,7 +13,7 @@ resources:
         # Specifies which branches will trigger dependent steps
         include: main
 
-  - name: npm_build_info
+  - name: node_build_info
     type: BuildInfo
     configuration:
       sourceArtifactory: Artifactory
@@ -21,7 +21,7 @@ resources:
       buildNumber: $run_number
       externalCI: Artifactory
 
-  - name: npm_promoted_build_info
+  - name: promoted_node_to_qa_build_info
     type: BuildInfo
     configuration:
       sourceArtifactory: Artifactory
@@ -29,7 +29,7 @@ resources:
       buildNumber: $run_number
       externalCI: Artifactory
 
-  - name: npm_promoted_to_stage_build_info
+  - name: promoted_node_to_prod_build_info
     type: BuildInfo
     configuration:
       sourceArtifactory: Artifactory
