@@ -85,6 +85,8 @@ pipelines:
           status: 'QA'
           comment: 'Promote to QA'
           copy: false
+          inputSteps:
+            - name: npm_build_step
           inputResources:
             - name: node_build_info
           outputResources:
