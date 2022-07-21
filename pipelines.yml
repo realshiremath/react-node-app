@@ -71,6 +71,12 @@ pipelines:
           outputResources:
             - name: node_build_info         # optional
 
+      - name: xrayScanStep
+        type: XrayScan
+        configuration:
+          inputResources:
+            - name: node_build_info
+
       - name: promote_to_qa
         type: PromoteBuild
         configuration:
