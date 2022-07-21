@@ -21,22 +21,6 @@ resources:
       buildNumber: $run_number
       externalCI: Artifactory
 
-  - name: promoted_node_to_qa_build_info
-    type: BuildInfo
-    configuration:
-      sourceArtifactory: Artifactory_MPATEL
-      buildName:  'react-node-app'
-      buildNumber: $run_number
-      externalCI: Artifactory
-
-  - name: promoted_node_to_prod_build_info
-    type: BuildInfo
-    configuration:
-      sourceArtifactory: Artifactory_MPATEL
-      buildName:  'react-node-app'
-      buildNumber: $run_number
-      externalCI: Artifactory
-
 pipelines:
   - name: react_node_app
     configuration:
@@ -85,12 +69,10 @@ pipelines:
           status: 'QA'
           comment: 'Promote to QA'
           copy: false
-          inputSteps:
-            - name: npm_build_step
           inputResources:
             - name: node_build_info
           outputResources:
-            - name: promoted_node_to_qa_build_info
+            - name: node_build_info
 
       - name: promote_to_prod
         type: PromoteBuild
@@ -101,6 +83,6 @@ pipelines:
           comment: 'Promote to PROD'
           copy: false
           inputResources:
-            - name: promoted_node_to_qa_build_info
+            - name: node_build_info
           outputResources:
-            - name: promoted_node_to_prod_build_info
+            - name: node_build_info
