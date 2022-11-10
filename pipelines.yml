@@ -19,7 +19,6 @@ resources:
       sourceArtifactory: Artifactory_MPATEL
       buildName:  'react-node-app'
       buildNumber: $run_number
-      externalCI: Artifactory
 
 pipelines:
   - name: react_node_app
