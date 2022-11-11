@@ -19,20 +19,6 @@ resources:
       sourceArtifactory: Artifactory_MPATEL
       buildName:  'react-node-app'
       buildNumber: $run_number
-      
-  - name: node_qa_build_info
-    type: BuildInfo
-    configuration:
-      sourceArtifactory: Artifactory_MPATEL
-      buildName:  'react-node-app'
-      buildNumber: $run_number
-     
-  - name: node_prod_build_info
-    type: BuildInfo
-    configuration:
-      sourceArtifactory: Artifactory_MPATEL
-      buildName:  'react-node-app'
-      buildNumber: $run_number
 
 pipelines:
   - name: react_node_app
@@ -65,8 +51,6 @@ pipelines:
             - name: Artifactory_MPATEL            # required
           inputSteps:
             - name: npm_build_step         # required
-          outputResources:
-            - name: node_build_info         # optional
 
       - name: xrayScanStep
         type: XrayScan
@@ -85,7 +69,7 @@ pipelines:
           inputResources:
             - name: node_build_info
           outputResources:
-            - name: node_qa_build_info
+            - name: node_build_info
 
       - name: promote_to_prod
         type: PromoteBuild
@@ -96,7 +80,7 @@ pipelines:
           comment: 'Promote to PROD'
           copy: false
           inputResources:
-            - name: node_qa_build_info
+            - name: node_build_info
           outputResources:
-            - name: node_prod_build_info
+            - name: node_build_info
 
