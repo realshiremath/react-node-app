@@ -68,10 +68,6 @@ pipelines:
           status: 'QA'
           comment: 'Promote to QA'
           copy: false
-          inputResources:
-            - name: node_build_info
-          outputResources:
-            - name: node_build_info
 
       - name: promote_to_prod
         type: PromoteBuild
@@ -81,7 +77,4 @@ pipelines:
           status: 'PROD'
           comment: 'Promote to PROD'
           copy: false
-          inputResources:
-            - name: node_build_info
-          outputResources:
-            - name: node_build_info
+
