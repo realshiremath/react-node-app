@@ -60,29 +60,4 @@ pipelines:
           inputResources:
             - name: node_build_info
 
-      - name: promote_to_qa
-        type: PromoteBuild
-        configuration:
-          targetRepository: dashboard-npm-qa-local
-          includeDependencies: false    # default false
-          status: 'QA'
-          comment: 'Promote to QA'
-          copy: false
-          inputResources:
-            - name: node_build_info
-          outputResources:
-            - name: node_build_info
-
-      - name: promote_to_prod
-        type: PromoteBuild
-        configuration:
-          targetRepository: dashboard-npm-prod-local
-          includeDependencies: false    # default false
-          status: 'PROD'
-          comment: 'Promote to PROD'
-          copy: false
-          inputResources:
-            - name: node_build_info
-          outputResources:
-            - name: node_build_info
-
+      
