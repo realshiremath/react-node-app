@@ -27,7 +27,7 @@ resources:
       buildName:  'react-node-app'
       buildNumber: $run_number
      
-   - name: node_prod_build_info
+  - name: node_prod_build_info
     type: BuildInfo
     configuration:
       sourceArtifactory: Artifactory_MPATEL
