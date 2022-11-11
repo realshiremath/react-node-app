@@ -51,6 +51,8 @@ pipelines:
             - name: Artifactory_MPATEL            # required
           inputSteps:
             - name: npm_build_step         # required
+          outputResources:
+            - name: node_build_info
 
       - name: xrayScanStep
         type: XrayScan
