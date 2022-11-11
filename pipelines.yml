@@ -19,6 +19,20 @@ resources:
       sourceArtifactory: Artifactory_MPATEL
       buildName:  'react-node-app'
       buildNumber: $run_number
+      
+  - name: node_qa_build_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: Artifactory_MPATEL
+      buildName:  'react-node-app'
+      buildNumber: $run_number
+     
+   - name: node_prod_build_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: Artifactory_MPATEL
+      buildName:  'react-node-app'
+      buildNumber: $run_number
 
 pipelines:
   - name: react_node_app
@@ -68,6 +82,10 @@ pipelines:
           status: 'QA'
           comment: 'Promote to QA'
           copy: false
+          inputResources:
+            - name: node_build_info
+          outputResources:
+            - name: node_qa_build_info
 
       - name: promote_to_prod
         type: PromoteBuild
@@ -77,4 +95,8 @@ pipelines:
           status: 'PROD'
           comment: 'Promote to PROD'
           copy: false
+          inputResources:
+            - name: node_qa_build_info
+          outputResources:
+            - name: node_prod_build_info
 
