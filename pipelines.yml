@@ -20,6 +20,23 @@ resources:
       buildName:  'react-node-app'
       buildNumber: $run_number
       externalCI: Artifactory
+      
+  - name: node_qa_build_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: Artifactory_MPATEL
+      buildName:  'react-node-app'
+      buildNumber: $run_number
+      externalCI: Artifactory
+      
+  - name: node_prod_build_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: Artifactory_MPATEL
+      buildName:  'react-node-app'
+      buildNumber: $run_number
+      externalCI: Artifactory   
+   
 
 pipelines:
   - name: react_node_app
@@ -72,7 +89,7 @@ pipelines:
           inputResources:
             - name: node_build_info
           outputResources:
-            - name: node_build_info
+            - name: node_qa_build_info
 
       - name: promote_to_prod
         type: PromoteBuild
@@ -83,6 +100,6 @@ pipelines:
           comment: 'Promote to PROD'
           copy: false
           inputResources:
-            - name: node_build_info
+            - name: node_qa_build_info
           outputResources:
-            - name: node_build_info
+            - name: node_prod_build_info
