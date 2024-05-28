@@ -12,6 +12,8 @@ jobs:
      JFROG_BUILD_STATUS: PASS
    steps:
      - uses: jfrog/setup-jfrog-cli@v4
+       with:
+        version: latest
      - run: jf --version
      - name: Checkout
        uses: actions/checkout@v2
