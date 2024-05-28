@@ -4,7 +4,7 @@ jobs:
  jfrog-ci-integration:
    runs-on: ubuntu-latest
    env:
-     BUILD_NAME: 'NodeDockerApp'
+     BUILD_NAME: 'reactApp'
      JFROG_BUILD_STATUS: PASS
    steps:
      - name: Checkout
