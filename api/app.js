@@ -84,8 +84,6 @@ app.listen(CONFIG.port, async () => {
       process.env.CURRENT_ENV
    );
 
-   console.log('  Press CTRL-C to stop\n');
-
    await createDummyData();
 });
 
