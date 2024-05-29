@@ -44,7 +44,7 @@ app.use(compression());
 app.use(cors());
 
 // Maintenance mode
-// app.use(maintenance());
+app.use(maintenance());
 
 // Routes
 // No auth required routes
