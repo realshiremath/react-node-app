@@ -46,9 +46,9 @@ jobs:
      - name: Login to JFrog Docker repo
        uses: docker/login-action@v3
        with:
-          registry: https://${{ secrets.JF_PLATFORM_URL }}
+          registry: https://${{ secrets.JF_URL }}
           username: ${{ secrets.JF_USER }}
-          password: ${{ secrets.JF_ACCESS_TOKEN }}
+          password: ${{ secrets.JF_PASSWORD }}
      - name: Docker Build 🐳🐸
        run: |
          jfrog docker image build --tag ${{ env.JF_URL }}/${{ env.DOCKER_JF_RT_REPO }}/demo-node-app:${{ env.NPM_PACKAGE_BUILD_VERSION }} --secret id=npmrc,src=$HOME/.npmrc  --build-name ${{env.BUILD_NAME}} --build-number ${{env.BUILD_NUMBER}} --module docker-build --build-arg="REGISTRY_URL=${{ env.JF_URL }}" --build-arg="DOCKER_REPO_NAME=$DOCKER_JF_RT_REPO"  .
