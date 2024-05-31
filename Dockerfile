@@ -9,6 +9,8 @@ WORKDIR /usr/src/app
 COPY package.json ./package.json
 COPY package-lock.json ./package-lock.json
 
+USER node
+
 RUN npm install
 
 # Get all the code needed to run the app
