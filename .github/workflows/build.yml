@@ -50,15 +50,15 @@ jobs:
           registry: ${{ secrets.JF_URL }}
           username: ${{ secrets.JF_USER }}
           password: ${{ secrets.JF_PASSWORD }}
-     # - name: Docker Build 🐳🐸
-     #   run: |
-     #     jfrog docker image build --tag ${{ env.JF_URL }}/${{ env.DOCKER_JF_RT_REPO }}/docker-node-app:${{ env.NPM_PACKAGE_BUILD_VERSION }} --secret id=npmrc,src=$HOME/.npmrc  --build-name ${{env.BUILD_NAME}} --build-number ${{env.BUILD_NUMBER}} --module docker-build --build-arg="REGISTRY_URL=${{ env.JF_URL }}" --build-arg="DOCKER_REPO_NAME=$DOCKER_JF_RT_REPO" --build-arg="NPM_REPO_NAME=$NPM_JF_RT_REPO"  .
-     # - name: JFrog docker image scan 🐳🐸
-     #   run: |
-     #     jfrog docker scan ${{ env.JF_URL }}/${{ env.DOCKER_JF_RT_REPO }}/demo-node-app:${{ env.NPM_PACKAGE_BUILD_VERSION }}
-     # - name: Docker Push 🐳🐸
-     #   run: |
-     #      jfrog docker push ${{ env.JF_URL }}/$DOCKER_JF_RT_REPO/demo-node-app:${{ env.NPM_PACKAGE_BUILD_VERSION }} --build-name $JFROG_CLI_BUILD_NAME --build-number $JFROG_CLI_BUILD_NUMBER --module docker-build --project $JF_RT_PROJECT_NAME
+     - name: Docker Build 🐳🐸
+       run: |
+         jf docker build . -t soleng.jfrog.io/alpha-docker-virtual/reactappimage:${{github.run_number}}
+     - name: JFrog docker image scan 🐳🐸
+       run: |
+         jf docker scan soleng.jfrog.io/alpha-docker-virtual/reactappimage:${{github.run_number}}
+     - name: Docker Push 🐳🐸
+       run: |
+          jf docker push soleng.jfrog.io/alpha-docker-virtual/reactappimage:${{github.run_number}}
      - name: Publish build build-info
        run: |
          # Collect and store environment variables in the build-info
