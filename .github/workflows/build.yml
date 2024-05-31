@@ -70,4 +70,19 @@ jobs:
          # Scan the published build-info with Xray
          # jf rt bs
        if: always()
-     
+     - name: Create Release Bundle for RLM
+       run: |
+         jf rbc --builds=json/builds-spec.json --signing-key=${{ secrets.Key }} reactApp ${{github.run_number}}
+
+         # promote to Dev
+         jf rbp reactApp ${{github.run_number}} DEV --signing-key=RBv2 --include-repos=alpha-npm-dev-local
+         jf rt set-props "alpha-npm-dev-local/react-bank-api/-/react-bank-api-1.0.6.tgz" "unit.test=pass;integration.test=null;"
+         
+
+         # Promote to QA
+         jf rbp reactApp ${{github.run_number}} QA --signing-key=RBv2 --include-repos=alpha-npm-qa-local
+         jf rt set-props "alpha-npm-qa-local/react-bank-api/-/react-bank-api-1.0.6.tgz" "unit.test=pass;integration.test=pass;"
+
+         # Promote to PROD
+         jf rbp reactApp ${{github.run_number}} PROD --signing-key=RBv2 --include-repos=alpha-npm-prod-local
+
