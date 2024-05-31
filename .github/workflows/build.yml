@@ -68,7 +68,7 @@ jobs:
          # Publish the build-info to Artifactory
          jf rt bp ${{env.BUILD_NAME}} ${{github.run_number}}
          # Scan the published build-info with Xray
-         # jf rt bs
+         jf rt bs
        if: always()
      - name: Create Release Bundle for RLM
        run: |
