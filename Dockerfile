@@ -1,6 +1,6 @@
 # Base image from 
 FROM soleng.jfrog.io/alpha-docker-virtual/nginx:stable-alpine3.17-slim
-FROM soleng.jfrog.io/alpha-docker-virtual/node:20-alpine
+FROM soleng.jfrog.io/alpha-docker-virtual/node:22
 
 # Create app directory
 WORKDIR /usr/src/app
