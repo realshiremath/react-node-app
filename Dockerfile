@@ -10,8 +10,6 @@ WORKDIR /home/node/app
 # Copy dependency definitions
 COPY package*.json ./
 
-USER node
-
 RUN npm install
 
 # Get all the code needed to run the app
