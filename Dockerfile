@@ -1,8 +1,6 @@
 # Base image from 
-# FROM INSTANCE_NAME.jfrog.io/DOCKER_REPO_NAME/node:18-alpine
-ARG REGISTRY_URL DOCKER_REPO_NAME NPM_REPO_NAME
-
-FROM ${REGISTRY_URL}/${DOCKER_REPO_NAME}/node:20
+FROM soleng.jfrog.io/alpha-docker-virtual/nginx:stable-alpine3.17-slim
+FROM soleng.jfrog.io/alpha-docker-virtual/node:20-alpine
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -11,15 +9,10 @@ WORKDIR /usr/src/app
 COPY package.json ./package.json
 COPY package-lock.json ./package-lock.json
 
-# Install dependencies
-# RUN --mount=type=secret,id=npmrc,target=/root/.npmrc \
-#   npm config list
-
-RUN --mount=type=secret,id=npmrc,target=/root/.npmrc \
-  npm i && rm -f /app/.npmrc
+RUN npm install
 
 # Get all the code needed to run the app
-COPY . .
+COPY --chown=node:node . .
 
 # Expose the port the app runs in
 EXPOSE 3000

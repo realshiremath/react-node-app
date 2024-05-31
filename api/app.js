@@ -33,7 +33,7 @@ const errorHandler = require('@middleware/error-handler');
 const createDummyData = require('@util/dummy-data');
 
 // App
-let app = express();
+const app = express();
 
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));

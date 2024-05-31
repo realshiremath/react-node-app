@@ -15,6 +15,8 @@ const auth = async (req, res, next) => {
          throwError('Auth token not available or incorrect', 422);
       }
 
+      console.log('test');
+
       token = token.replace('Bearer ', '');
 
       const decoded = jwt.verify(token, CONFIG.jwt_secret_key);
@@ -26,10 +28,12 @@ const auth = async (req, res, next) => {
 
       req.token = token;
       req.user = user;
+      console.debug(req.user);
       next();
    } catch (err) {
       passError(err, next);
    }
 };
+
 
 module.exports = auth;
