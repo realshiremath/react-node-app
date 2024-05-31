@@ -2,12 +2,13 @@
 FROM soleng.jfrog.io/alpha-docker-virtual/nginx:stable-alpine3.17-slim
 FROM soleng.jfrog.io/alpha-docker-virtual/node:22
 
+RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /home/node/app
 
 # Copy dependency definitions
-COPY package.json ./package.json
-COPY package-lock.json ./package-lock.json
+COPY package*.json ./
 
 USER node
 
