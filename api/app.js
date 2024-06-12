@@ -69,7 +69,7 @@ if (process.env.CURRENT_ENV === 'development') {
    app.use(errorHandler);
 } else {
    app.use((err, req, res, next) => {
-      console.error(err);
+  
       res.status(500).send('Server Error');
    });
 }
@@ -85,6 +85,7 @@ app.listen(CONFIG.port, async () => {
       process.env.CURRENT_ENV
    );
 
+   console.log("testt");
    await createDummyData();
 });
 
