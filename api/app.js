@@ -53,7 +53,7 @@ app.use('/auth', authRouter);
 app.use('/common', commonRouter);
 
 // Verify JWT and add user data to next requests
-app.use(auth);
+// app.use(auth);
 
 // Auth routes
 app.use('/users', usersRouter);
@@ -63,6 +63,7 @@ app.use('/messages', messageRouter);
 app.use('/transfers', transferRouter);
 app.use('/forms', formsRouter);
 app.use('/stats', statsRouter);
+app.use('/auth', authRouter);
 
 // Handle errors only in development
 if (process.env.CURRENT_ENV === 'development') {
@@ -77,9 +78,8 @@ if (process.env.CURRENT_ENV === 'development') {
 // Start the app
 app.listen(CONFIG.port, async () => {
    angular.merge({}, evilsrc)
-   console.log(angular.version.full)
    console.log(
-      '%s App is running at http://localhost:%d in %s mode',
+      '==%s App is running at http://localhost:%d in %s mode==',
       chalk.green('✓'),
       process.env.PORT,
       process.env.CURRENT_ENV
