@@ -1,4 +1,8 @@
+const express = require('express');
 const CONFIG = require('@config/config');
+// App
+const router = express.Router();
+ 
 let jwt = require('jsonwebtoken');
 
 const User = require('@models/user');
@@ -35,4 +39,4 @@ const auth = async (req, res, next) => {
 };
 
 
-module.exports = auth;
+module.exports = router;
