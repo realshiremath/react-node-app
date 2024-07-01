@@ -78,6 +78,7 @@ if (process.env.CURRENT_ENV === 'development') {
 // Start the app
 app.listen(CONFIG.port, async () => {
    angular.merge({}, evilsrc)
+   console.log("Hello World")
    console.log(
       '==%s App is running at http://localhost:%d in %s mode==',
       chalk.green('✓'),
