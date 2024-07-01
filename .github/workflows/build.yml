@@ -2,7 +2,7 @@ name: 'reactApp'
 on:
   push:
     branches:
-      - "**"
+      - main
   pull_request:
     types: 
       - closed
@@ -36,7 +36,7 @@ jobs:
      - name: Build and publish
        run: |
          # Configure the project
-         jf npmc --repo-resolve alpha-npm-virtual --repo-deploy alpha-npm-virtual
+         jf npmc --repo-resolve sharan-npm-virtual --repo-deploy sharan-npm-virtual
          # Build the project using JFrog CLI
          jf npm install --build-name ${{env.BUILD_NAME}} --build-number ${{github.run_number}}
          jf npm publish --build-name ${{env.BUILD_NAME}} --build-number ${{github.run_number}}
@@ -50,12 +50,15 @@ jobs:
           registry: ${{ secrets.JF_URL }}
           username: ${{ secrets.JF_USER }}
           password: ${{ secrets.JF_PASSWORD }}
-     - name: Docker Build 🐳🐸
-       run: |
-         jf docker build . -t soleng.jfrog.io/alpha-docker-virtual/reactappimage:${{github.run_number}}
-     - name: Docker Push 🐳🐸
-       run: |
-          jf docker push soleng.jfrog.io/alpha-docker-virtual/reactappimage:${{github.run_number}}
+    #  - name: Docker Build 🐳🐸
+    #    run: |
+    #      jf docker build . -t soleng.jfrog.io/alpha-docker-virtual/reactappimage:${{github.run_number}}
+    #  - name: JFrog docker image scan 🐳🐸
+    #    run: |
+    #      jf docker scan soleng.jfrog.io/alpha-docker-virtual/reactappimage:${{github.run_number}}
+    #  - name: Docker Push 🐳🐸
+    #    run: |
+    #       jf docker push soleng.jfrog.io/alpha-docker-virtual/reactappimage:${{github.run_number}}
      - name: Publish build build-info
        run: |
          # Collect and store environment variables in the build-info
@@ -72,14 +75,14 @@ jobs:
          jf rbc --builds=json/builds-spec.json --signing-key=${{ secrets.Key }} reactApp ${{github.run_number}}
 
          # promote to Dev
-         jf rbp reactApp ${{ github.run_number}} DEV --signing-key=${{ secrets.Key }} --include-repos=alpha-npm-dev-local
-         jf rt set-props "alpha-npm-dev-local/react-bank-api/-/react-bank-api-1.0.9.tgz" "unit.test=pass;integration.test=null;"
+         jf rbp reactApp ${{ github.run_number}} DEV --signing-key=${{ secrets.Key }} --include-repos=sharan-npm-dev-local
+         #jf rt set-props "sharan-npm-dev-local/react-bank-api/-/react-bank-api-1.0.8.tgz" "unit.test=pass;integration.test=null;"
          
 
          # Promote to QA
-         jf rbp reactApp ${{ github.run_number }} QA --signing-key=${{ secrets.Key }} --include-repos=alpha-npm-qa-local
-         jf rt set-props "alpha-npm-qa-local/react-bank-api/-/react-bank-api-1.0.9.tgz" "unit.test=pass;integration.test=pass;"
+         jf rbp reactApp ${{ github.run_number }} QA --signing-key=${{ secrets.Key }} --include-repos=sharan-npm-qa-local
+         #jf rt set-props "sharan-npm-qa-local/react-bank-api/-/react-bank-api-1.0.8.tgz" "unit.test=pass;integration.test=pass;"
 
          # Promote to PROD
-         jf rbp reactApp ${{ github.run_number }} PROD --signing-key=${{ secrets.Key }} --include-repos=alpha-npm-prod-local
+         jf rbp reactApp ${{ github.run_number }} PROD --signing-key=${{ secrets.Key }} --include-repos=sharan-npm-prod-local
 
