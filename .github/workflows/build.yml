@@ -71,10 +71,6 @@ jobs:
          # Scan the published build-info with Xray
          jf rt bs ${{env.BUILD_NAME}} ${{github.run_number}}
 
-      - name: build scan
-        run: |            
-        jf build-scan
-
          
        if: always()
    #  - name: Create Release Bundle for RLM
