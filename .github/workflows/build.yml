@@ -39,8 +39,6 @@ jobs:
          jf npmc --repo-resolve sharan-npm-virtual --repo-deploy sharan-npm-virtual
          # Build the project using JFrog CLI
          jf npm install --build-name ${{env.BUILD_NAME}} --build-number ${{github.run_number}}
-         # Trying jf scan
-         jf scan react-bank-api.tar.gz
          # Publish the project
          jf npm publish --build-name ${{env.BUILD_NAME}} --build-number ${{github.run_number}}
      - name: Failure check
@@ -72,7 +70,7 @@ jobs:
          jf rt bp ${{env.BUILD_NAME}} ${{github.run_number}}
          # Scan the published build-info with Xray
          jf rt bs ${{env.BUILD_NAME}} ${{github.run_number}}
-         # Trying jf scan here
+
          
        if: always()
      - name: Create Release Bundle for RLM
