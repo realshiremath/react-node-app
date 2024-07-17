@@ -70,8 +70,10 @@ jobs:
          jf rt bp ${{env.BUILD_NAME}} ${{github.run_number}}
          # Scan the published build-info with Xray
          jf rt bs ${{env.BUILD_NAME}} ${{github.run_number}}
-         #scan here
-         jf scan react-bank-api-1.0.11.tgz
+
+      - name: build scan
+        run: |            
+        jf build-scan
 
          
        if: always()
