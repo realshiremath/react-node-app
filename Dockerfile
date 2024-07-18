@@ -1,6 +1,6 @@
 # Base image from 
-FROM soleng.jfrog.io/alpha-docker-virtual/nginx:stable-alpine3.17-slim
-FROM soleng.jfrog.io/alpha-docker-virtual/node:22
+FROM productdemo.jfrog.io/sharan-test-repo/nginx:stable-alpine3.17-slim
+FROM productdemo.jfrog.io/sharan-test-repo/node:22
 
 # Create app directory
 RUN mkdir -p /usr/src/app
