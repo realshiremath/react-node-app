@@ -1,16 +1,16 @@
 # Base image from 
-FROM productdemo.jfrog.io/sharan-test-repo/nginx:stable-alpine3.17-slim
-FROM productdemo.jfrog.io/sharan-test-repo/node:22
+FROM nginx:stable-alpine3.17-slim
+FROM node:22
 
 # Run as root 
 # USER root
 # Create app directory
 
-RUN mkdir -p nodeapp
-WORKDIR /nodeapp
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
 
-COPY . /nodeapp
+COPY . /usr/src/app
 
 RUN npm install --unsafe-perm
 
