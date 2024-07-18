@@ -71,7 +71,7 @@ jobs:
          # Scan the published build-info with Xray
          jf rt bs ${{env.BUILD_NAME}} ${{github.run_number}}
          #list files
-         ls ${{ github.workspace }}
+         ls -ltr ${{ github.workspace }}
 
          
        if: always()
