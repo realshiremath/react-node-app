@@ -3,13 +3,14 @@ FROM productdemo.jfrog.io/sharan-test-repo/nginx:stable-alpine3.17-slim
 FROM productdemo.jfrog.io/sharan-test-repo/node:22
 
 # Run as root 
-USER root
+# USER root
 # Create app directory
 
-WORKDIR /usr/app
-RUN mkdir -p /usr/app
+RUN mkdir -p nodeapp
+WORKDIR /nodeapp
 
-COPY . /usr/app
+
+COPY . /nodeapp
 
 RUN npm install --unsafe-perm
 
