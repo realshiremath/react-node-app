@@ -2,6 +2,8 @@
 FROM productdemo.jfrog.io/sharan-test-repo/nginx:stable-alpine3.17-slim
 FROM productdemo.jfrog.io/sharan-test-repo/node:22
 
+# Run as root
+USER root
 # Create app directory
 RUN mkdir -p /usr/app
 
