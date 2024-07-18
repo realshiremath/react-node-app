@@ -51,13 +51,13 @@ jobs:
           registry: ${{ secrets.JF_URL }}
           username: ${{ secrets.JF_USER }}
           password: ${{ secrets.JF_PASSWORD }}
-      - name: Docker Build 🐳🐸
+     - name: Docker Build 🐳🐸
         run: |
           jf docker build . -t productdemo.jfrog.io/sharan-test-repo/reactappimage:${{github.run_number}}
-      - name: JFrog docker image scan 🐳🐸
+     - name: JFrog docker image scan 🐳🐸
         run: |
           jf docker scan productdemo.jfrog.io/sharan-test-repo/reactappimage:${{github.run_number}}
-      - name: Docker Push 🐳🐸
+     - name: Docker Push 🐳🐸
         run: |
            jf docker push productdemo.jfrog.io/sharan-test-repo/reactappimage:${{github.run_number}}
      - name: Publish build build-info
