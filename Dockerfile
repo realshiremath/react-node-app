@@ -3,10 +3,10 @@ FROM productdemo.jfrog.io/sharan-test-repo/nginx:stable-alpine3.17-slim
 FROM productdemo.jfrog.io/sharan-test-repo/node:22
 
 # Create app directory
-RUN mkdir -p /usr/src/app
+RUN mkdir -p /app
 
-WORKDIR /usr/src/app
-COPY . /usr/src/app
+WORKDIR /app
+COPY . /app
 
 RUN npm install --unsafe-perm
 
