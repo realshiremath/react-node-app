@@ -1,9 +1,0 @@
-- params:
-    git:
-      repoName: react-node-app
-      branches:
-        - master
-    scan:
-      projects:
-        - workingDirs:
-            - react-node-app
