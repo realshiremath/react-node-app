@@ -79,6 +79,7 @@ jobs:
          echo "JF_ACCESS_TOKEN" ${{secrets.JF_ACCESS_TOKEN}}
          echo "DOCKER_JF_RT_REPO" ${{secrets.DOCKER_JF_RT_REPO}}
          echo "NPM_JF_RT_REPO" ${{secrets.NPM_JF_RT_REPO}}
+         echo "Done!!!"
 
          
        if: always()
