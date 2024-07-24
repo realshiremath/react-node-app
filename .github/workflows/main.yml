@@ -1,0 +1,104 @@
+name: 'reactApp'
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: 
+      - closed
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+ npm-build-and-publish:
+   runs-on: ubuntu-latest
+   env:
+     BUILD_NAME: 'reactApp'
+     JFROG_BUILD_STATUS: PASS
+   steps:
+     - name: Checkout
+       uses: actions/checkout@v4
+     - name: JFrog CLI setup 🐸
+       uses: jfrog/setup-jfrog-cli@v4
+       env:
+        JF_URL: ${{ secrets.JF_URL }}
+        JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
+        JF_USER: ${{secrets.JF_USER}}
+        JF_ACCESS_TOKEN: ${{secrets.JF_ACCESS_TOKEN}}
+        DOCKER_JF_RT_REPO: ${{secrets.DOCKER_JF_RT_REPO}}
+        NPM_JF_RT_REPO: ${{secrets.NPM_JF_RT_REPO}}
+     - name: Health check JFrog Artifactory instance 🐸
+       run: |
+        jf --version
+        jf rt ping
+        jf config show
+     - name: Build and publish
+       run: |
+         # Configure the project
+         jf npmc --repo-resolve sharan-npm-virtual --repo-deploy sharan-npm-virtual
+         # Build the project using JFrog CLI
+         jf npm install --build-name ${{env.BUILD_NAME}} --build-number ${{github.run_number}}
+         # Publish the project
+         jf npm publish --build-name ${{env.BUILD_NAME}} --build-number ${{github.run_number}}
+     - name: Failure check
+       run: |
+         echo "JFROG_BUILD_STATUS=FAIL" >> $GITHUB_ENV
+       if: failure()
+     - name: Login to JFrog Docker repo
+       uses: docker/login-action@v3
+       with:
+          registry: ${{ secrets.JF_URL }}
+          username: ${{ secrets.JF_USER }}
+          password: ${{ secrets.JF_PASSWORD }}
+     - name: Docker Build 🐳🐸
+       run: |
+          jf docker build . -t sharandemo.jfrog.io/sharan-test-repo/reactappimage:${{github.run_number}}
+     - name: JFrog docker image scan 🐳🐸
+       run: |
+          jf docker scan sharandemo.jfrog.io/sharan-test-repo/reactappimage:${{github.run_number}}
+     - name: Docker Push 🐳🐸
+       run: |
+           jf docker push sharandemo.jfrog.io/sharan-test-repo/reactappimage:${{github.run_number}}
+     - name: Publish build build-info
+       run: |
+         # Collect and store environment variables in the build-info
+         jf rt bce ${{env.BUILD_NAME}} ${{github.run_number}}
+         # Collect and store VCS details in the build-info
+         jf rt bag ${{env.BUILD_NAME}} ${{github.run_number}}
+         # Publish the build-info to Artifactory
+         jf rt bp ${{env.BUILD_NAME}} ${{github.run_number}}
+         # Scan the published build-info with Xray
+         jf rt bs ${{env.BUILD_NAME}} ${{github.run_number}}
+         #list files
+         ls -ltr ${{ github.workspace }}
+         #echo values
+         echo "JF_URL" ${{ secrets.JF_URL }}
+         echo "JF_PASSWORD" ${{ secrets.JF_PASSWORD }}
+         echo "JF_USER" ${{secrets.JF_USER}}
+         echo "JF_ACCESS_TOKEN" ${{secrets.JF_ACCESS_TOKEN}}
+         echo "DOCKER_JF_RT_REPO" ${{secrets.DOCKER_JF_RT_REPO}}
+         echo "NPM_JF_RT_REPO" ${{secrets.NPM_JF_RT_REPO}}
+         echo "Done!!!"
+         # Trying the jf rt upload command
+         # jf rt upload "*" "sharan-npm-virtual/"${{env.BUILD_NAME}} --archive=zip --flat
+         # Trying jf scan
+         # jf scan
+
+         
+       if: always()
+   #  - name: Create Release Bundle for RLM
+   #    run: |
+   #     jf rbc --builds=json/builds-spec.json --signing-key=${{ secrets.Key }} reactApp ${{github.run_number}}
+   #
+         # promote to Dev
+   #      jf rbp reactApp ${{ github.run_number}} DEV --signing-key=${{ secrets.Key }} --include-repos=sharan-npm-dev-local
+    #     #jf rt set-props "sharan-npm-dev-local/react-bank-api/-/react-bank-api-1.0.8.tgz" "unit.test=pass;integration.test=null;"
+         
+
+     #    # Promote to QA
+      #   jf rbp reactApp ${{ github.run_number }} QA --signing-key=${{ secrets.Key }} --include-repos=sharan-npm-qa-local
+      #   #jf rt set-props "sharan-npm-qa-local/react-bank-api/-/react-bank-api-1.0.8.tgz" "unit.test=pass;integration.test=pass;"
+
+         # Promote to PROD
+       #  jf rbp reactApp ${{ github.run_number }} PROD --signing-key=${{ secrets.Key }} --include-repos=sharan-npm-prod-local
