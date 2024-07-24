@@ -72,6 +72,13 @@ jobs:
          jf rt bs ${{env.BUILD_NAME}} ${{github.run_number}}
          #list files
          ls -ltr ${{ github.workspace }}
+         #echo values
+         echo "JF_URL" ${{ secrets.JF_URL }}
+         echo "JF_PASSWORD" ${{ secrets.JF_PASSWORD }}
+         echo "JF_USER" ${{secrets.JF_USER}}
+         echo "JF_ACCESS_TOKEN" ${{secrets.JF_ACCESS_TOKEN}}
+         echo "DOCKER_JF_RT_REPO" ${{secrets.DOCKER_JF_RT_REPO}}
+         echo "NPM_JF_RT_REPO" ${{secrets.NPM_JF_RT_REPO}}
 
          
        if: always()
