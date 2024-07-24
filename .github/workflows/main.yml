@@ -80,10 +80,6 @@ jobs:
          echo "DOCKER_JF_RT_REPO" ${{secrets.DOCKER_JF_RT_REPO}}
          echo "NPM_JF_RT_REPO" ${{secrets.NPM_JF_RT_REPO}}
          echo "Done!!!"
-         # Trying the jf rt upload command
-         # jf rt upload "*" "sharan-npm-virtual/"${{env.BUILD_NAME}} --archive=zip --flat
-         # Trying jf scan
-         # jf scan
 
          
        if: always()
@@ -102,3 +98,4 @@ jobs:
 
          # Promote to PROD
        #  jf rbp reactApp ${{ github.run_number }} PROD --signing-key=${{ secrets.Key }} --include-repos=sharan-npm-prod-local
+
