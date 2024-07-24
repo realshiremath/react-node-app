@@ -83,7 +83,7 @@ jobs:
          # Trying the jf rt upload command
          # jf rt upload "*" "sharan-npm-virtual/"${{env.BUILD_NAME}} --archive=zip --flat
          # Trying jf scan
-         jf scan
+         # jf scan
 
          
        if: always()
