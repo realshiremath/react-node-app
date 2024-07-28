@@ -86,7 +86,7 @@ jobs:
    #  - name: Create Release Bundle for RLM
    #    run: |
    #     jf rbc --builds=json/builds-spec.json --signing-key=${{ secrets.Key }} reactApp ${{github.run_number}}
-   #
+   # ####
          # promote to Dev
    #      jf rbp reactApp ${{ github.run_number}} DEV --signing-key=${{ secrets.Key }} --include-repos=sharan-npm-dev-local
     #     #jf rt set-props "sharan-npm-dev-local/react-bank-api/-/react-bank-api-1.0.8.tgz" "unit.test=pass;integration.test=null;"
