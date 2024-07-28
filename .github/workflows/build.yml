@@ -36,7 +36,7 @@ jobs:
      - name: Build and publish
        run: |
          # Configure the project
-         #jf npmc --repo-resolve sharan-npm-virtual --repo-deploy sharan-npm-virtual
+         jf npmc --repo-resolve sharan-npm-virtual --repo-deploy sharan-npm-virtual
          # Build the project using JFrog CLI
          jf npm install --build-name ${{env.BUILD_NAME}} --build-number ${{github.run_number}}
          # Publish the project
