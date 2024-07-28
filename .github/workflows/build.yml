@@ -53,13 +53,13 @@ jobs:
           password: ${{ secrets.JF_PASSWORD }}
      - name: Docker Build 🐳🐸
        run: |
-          jf docker build . -t sharandemo.jfrog.io/sharan-test-repo/reactappimage:${{github.run_number}}
+          jf docker build . -t demo.jfrog.io/artifactory/docker-local/reactappimage:${{github.run_number}}
      - name: JFrog docker image scan 🐳🐸
        run: |
-          jf docker scan sharandemo.jfrog.io/sharan-test-repo/reactappimage:${{github.run_number}}
+          jf docker scan demo.jfrog.io/artifactory/docker-local/reactappimage:${{github.run_number}}
      - name: Docker Push 🐳🐸
        run: |
-           jf docker push sharandemo.jfrog.io/sharan-test-repo/reactappimage:${{github.run_number}}
+           jf docker push demo.jfrog.io/artifactory/docker-local/reactappimage:${{github.run_number}}
      - name: Publish build build-info
        run: |
          # Collect and store environment variables in the build-info
