@@ -34,11 +34,11 @@ jobs:
           # 2. The `installCommand` variable isn't set in your frogbot-config.yml file.
           #
           # The command that installs the project dependencies (e.g "npm i", "nuget restore" or "dotnet restore")
-          # JF_INSTALL_DEPS_CMD: ""
+          JF_INSTALL_DEPS_CMD: ""
 
           # [Mandatory]
           # JFrog platform URL
-          JF_URL: ${{ secrets.JF_URL }}
+          JF_URL: https://productdemo.jfrog.io/
 
           # [Mandatory if JF_USER and JF_PASSWORD are not provided]
           # JFrog access token with 'read' permissions on Xray service
