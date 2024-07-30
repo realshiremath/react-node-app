@@ -36,7 +36,7 @@ jobs:
      - name: Build and publish
        run: |
          # Configure the project
-         jf npmc --repo-resolve sharan-npm-virtual --repo-deploy sharan-npm-virtual
+         jf npmc --repo-resolve nag-npm-virtual --repo-deploy nag-npm-virtual
          # Build the project using JFrog CLI
          jf npm install --build-name ${{env.BUILD_NAME}} --build-number ${{github.run_number}}
          # Publish the project
@@ -53,13 +53,13 @@ jobs:
           password: ${{ secrets.JF_PASSWORD }}
      - name: Docker Build 🐳🐸
        run: |
-          jf docker build . -t demo.jfrog.io/docker-local/reactappimage:${{github.run_number}}
+          jf docker build . -t productdemo.jfrog.io/nag-docker-local/reactappimage:${{github.run_number}}
      - name: JFrog docker image scan 🐳🐸
        run: |
-          jf docker scan demo.jfrog.io/docker-local/reactappimage:${{github.run_number}}
+          jf docker scan productdemo.jfrog.io/nag-docker-local/reactappimage:${{github.run_number}}
      - name: Docker Push 🐳🐸
        run: |
-           jf docker push demo.jfrog.io/docker-local/reactappimage:${{github.run_number}}
+           jf docker push productdemo.jfrog.io/nag-docker-local/reactappimage:${{github.run_number}}
      - name: Publish build build-info
        run: |
          # Collect and store environment variables in the build-info
